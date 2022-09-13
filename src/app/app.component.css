@@ -1,0 +1,22 @@
+/* div
+{
+    width:50%;
+    height: 50%;
+    border: 10px black solid;
+    border-radius: 20px;
+    background-color: tomato;
+    margin: auto;
+    padding: 50px ; 
+    
+}
+.movie
+{
+    margin: auto;
+    border-radius: 0% ;
+    border-style: none;
+} */
+h1
+{
+    color: aqua;
+    background-color: black;
+}
