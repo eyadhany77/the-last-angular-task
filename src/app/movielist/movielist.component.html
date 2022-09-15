@@ -1,0 +1,19 @@
+<p>movielist works!</p>
+<div class="container">
+  <h3>{{childmsg}}</h3>
+<div class="row">
+    <input type="text" value="search here" [(ngModel)]="searchValue">
+    <div class="col-3" *ngFor="let singlemovie of filteredMovies">
+    <div class="card h-50"  >
+      <img class="card-img-top" [src]='"https://image.tmdb.org/t/p/w500"+singlemovie.poster_path' alt="Card image" >
+      <div class="card-body">
+        <h4 class="card-title">{{singlemovie.title}}</h4>
+        <p class="card-text" *ngIf="singlemovie.isVisiable">{{singlemovie.overview}}</p>
+        <app-movierating [raiting]="singlemovie.rating" (messagefromchild)="handlechildevent($event)"></app-movierating>
+        <button href="#" (click)="toggledata(singlemovie.id)" class="btn btn-primary" >
+          {{singlemovie.isVisiable? 'hide':'show'}} details</button>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
