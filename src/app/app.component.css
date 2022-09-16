@@ -20,3 +20,8 @@ h1
     color: aqua;
     background-color: black;
 }
+.navbar-brand
+{
+    color: red;
+    background-color: black;
+}

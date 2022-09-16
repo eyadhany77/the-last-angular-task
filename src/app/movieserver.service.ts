@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -66,9 +68,35 @@ export class MovieserverService {
    },
    ]
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
-    getdata(){
-      return this.movies;
+    getallmovies(pagenumber=1) :Observable <any> {
+      return this.http.get(`https://api.themoviedb.org/3/movie/popular?api_key=5caa732474e64cf609bba25ff127d08e&language=en-US&page=${pagenumber}`)
+
+    }
+
+    getsearchmovie(movieName:string):Observable<any>
+    {
+      if(movieName==''){
+        return this.getallmovies();
+      }else{
+      return this.http.get(
+        `https://api.themoviedb.org/3/search/movie?api_key=5caa732474e64cf609bba25ff127d08e&language=en-US&page=1&include_adult=false&query=${movieName}`
+      );}
+    }
+    getmoviebyid(val:number):Observable <any> 
+    {
+      return this.http.get(`https://api.themoviedb.org/3/movie/${val}?api_key=5caa732474e64cf609bba25ff127d08e&language=en-US`)
+    }
+
+    
+    gettvseries():Observable<any>
+    {
+      return this.http.get(`https://api.themoviedb.org/3/tv/popular?api_key=5caa732474e64cf609bba25ff127d08e&language=en-US`)
+    }
+
+    gettvseriesbyid(cal:number):Observable<any>
+    {
+      return this.http.get(`https://api.themoviedb.org/3/tv/${cal}?api_key=5caa732474e64cf609bba25ff127d08e&language=en-US`)
     }
 }

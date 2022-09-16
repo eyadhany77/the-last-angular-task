@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
+import { Subscriber } from 'rxjs';
 import { MovieserverService } from '../movieserver.service';
 import { Imovie } from './movie';
 
@@ -10,6 +12,10 @@ import { Imovie } from './movie';
 export class MovielistComponent  implements OnInit{
   isdisabled = false;
   childmsg='';
+  pageSize=20;
+  length=3000;
+  currentpage=1;
+  
   private _searchValue:string=''
   moviedata:any[]=[]
   filteredMovies:any[]=this.moviedata;
@@ -19,8 +25,13 @@ export class MovielistComponent  implements OnInit{
 
    ngOnInit() {
       console.log('hello on int');
-      this.moviedata=this.moviesservice.getdata();
-      this.filteredMovies=this.moviedata;
+      this.moviesservice.getallmovies().subscribe({next:(movies)=>
+      {
+        console.log(movies.results);
+        this.moviedata=movies.results;
+        this.filteredMovies=this.moviedata;
+      }});
+      
     }
 
 
@@ -31,7 +42,7 @@ export class MovielistComponent  implements OnInit{
     set searchValue(value:string)
     { 
       this._searchValue=value;
-      this.filteredMovies=this.perfomSearch(value);
+      this.perfomSearch(value);
     } 
 
    
@@ -46,11 +57,20 @@ export class MovielistComponent  implements OnInit{
       })
     }
   
-perfomSearch (val:string) :Imovie[] {
-return this.moviedata.filter((movie)=>
-movie.title.toLocaleLowerCase().includes(val.toLocaleLowerCase()))
+perfomSearch (val:string)  {
+this.moviesservice.getsearchmovie(val) .subscribe({next:(data)=>{this.filteredMovies=data.results;}})
 }
 
 handlechildevent(data:string){this.childmsg=data;}
+onpagechange(pagedata:PageEvent){
+  this.currentpage=pagedata.pageIndex+1;
+  this.moviesservice.getallmovies(this.currentpage  ).subscribe({next:(movies)=>
+    {
+      console.log(movies.results);
+      this.moviedata=movies.results;
+      this.filteredMovies=this.moviedata;
+    }});
+}
+
 }
 

@@ -5,7 +5,7 @@
     <input type="text" value="search here" [(ngModel)]="searchValue">
     <div class="col-3" *ngFor="let singlemovie of filteredMovies">
     <div class="card h-50"  >
-      <img class="card-img-top" [src]='"https://image.tmdb.org/t/p/w500"+singlemovie.poster_path' alt="Card image" >
+      <a [routerLink]="['/movies',singlemovie.id]"><img class="card-img-top" [src]='"https://image.tmdb.org/t/p/w500"+singlemovie.poster_path' alt="Card image" ></a>
       <div class="card-body">
         <h4 class="card-title">{{singlemovie.title}}</h4>
         <p class="card-text" *ngIf="singlemovie.isVisiable">{{singlemovie.overview}}</p>
@@ -16,4 +16,10 @@
     </div>
   </div>
 </div>
+
+<mat-paginator [length]="length"
+               [pageSize]="pageSize"
+               (page)="onpagechange($event)" 
+               aria-label="Select page">
+</mat-paginator>
   </div>

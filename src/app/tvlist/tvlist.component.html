@@ -1,0 +1,15 @@
+
+<div class="container">
+  <div class="row">
+      <!-- <input type="text" value="search here" [(ngModel)]="searchValue"> -->
+      <div class="col-3" *ngFor="let singlemovie of tvshows">
+      <div class="card h-50"  >
+        <a [routerLink]="['/tv',singlemovie.id]"><img class="card-img-top" [src]='"https://image.tmdb.org/t/p/w500"+singlemovie.poster_path' alt="Card image" ></a>
+        <div class="card-body">
+          <h4 class="card-title">{{singlemovie.original_name}}</h4>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>

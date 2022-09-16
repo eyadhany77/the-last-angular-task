@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="row">
+      
+      <div class="col-3" >
+      <div class="card h-50"  >
+        <img class="card-img-top" [src]='"https://image.tmdb.org/t/p/w500"+singlemovie.poster_path' alt="Card image" >
+        <div class="card-body">
+          <h4 class="card-title">{{singlemovie.title}}</h4>
+          <p class="card-text" *ngIf="singlemovie.isVisiable">{{singlemovie.overview}}</p>
+          
+        </div>
+      </div>
+    </div>
+
+
+ 
+  </div>
